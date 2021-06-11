@@ -23,6 +23,8 @@ int main(void)
 	//getting size of array
 	int n  = sizeof(arr)/sizeof(arr[0]);
 	// cout<<len<<endl;
+
+	//reversing array
 	for (int i = 0, temp = 0; i < n/2; i++)
 	{
 		temp = arr[i];
