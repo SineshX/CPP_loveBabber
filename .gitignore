@@ -10,3 +10,4 @@ tempCoderunner
 # git rm --cached test.cpp 
 # just remove from gitignore  to get it back
 hello.py
+test.c
