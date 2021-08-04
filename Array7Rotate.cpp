@@ -1,0 +1,26 @@
+#include<iostream>
+using namespace std;
+void rotate(int arr[], int n)
+{
+    int temp = arr[n-1];
+    for(int i = n-1 ; i > 0  ;i--)
+    {
+        arr[i ] = arr [i-1];
+    }
+    arr[0] = temp;
+}
+int main()
+{
+    int arr[] = {1,2,3,4,5,6,7,8,9};
+
+	//getting size of array
+	int n  = sizeof(arr)/sizeof(arr[0]);
+    rotate(arr,n);
+    //print 
+    for(int i: arr)
+	{
+		cout<<i<<"\t";
+	}
+    cout<<endl;
+    return 0;
+}
