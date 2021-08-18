@@ -4,29 +4,29 @@ using namespace std;
 void printArray(int arr[], int size);
 void merge(int arr1[], int arr2[], int n, int m)
 {
-    for (int i = 0; i < n; i++)
-    {
-        bool flag = 0;
-        if (arr1[i] > arr2[0])
-        {
-            flag = 1;
-            swap(arr1[i], arr2[0]);
-        }
-        if (flag)
-        {
-            sort(arr2, arr2 + m);
-        }
-    }
-} // fking segmentation fault :_;
+    //ascending order
+    int i = 0, j = 0, k = n - 1;
 
-void printArray(int arr[], int size)
-{
-    cout << "Array :  ";
-    for (int i = 0; i < size; i++)
+    // Untill i less than equal to k // till last element of arr1
+
+    // or j is less tha m //till end of array 2
+
+    while (i <= k && j < m)
     {
-        cout << arr[i] << "\t";
+        if (arr1[i] < arr2[j])
+            i++;
+        else
+        {
+            swap(arr2[j++], arr1[k--]);
+            // j++ and k-- is done later :) post increament/decreament 
+        }
     }
-    cout << endl;
+
+    // Sort first array
+    sort(arr1, arr1 + n);
+
+    // Sort second array
+    sort(arr2, arr2 + m);
 }
 
 int main()
@@ -39,4 +39,12 @@ int main()
     printArray(arr2, m);
     cout << endl;
     return 0;
+}
+void printArray(int arr[],int size)
+{	cout<<"Array :  ";
+	for(int i = 0;i<size;i++)
+	{
+		cout<<arr[i]<<"\t";
+	}
+	cout<<endl;
 }
