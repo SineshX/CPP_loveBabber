@@ -15,58 +15,45 @@ void print2DVector(vector<vector<int>> &vect)
         cout << endl;
     }
 }
+/*
 
-// for sorting on basis of 1nd column
-bool sortcol(const vector<int> &v1,
-             const vector<int> &v2)
+Runtime: 16 ms, faster than 90.32% of C++ online submissions for Merge Intervals.
+Memory Usage: 14.2 MB, less than 57.27% of C++ online submissions for Merge Intervals.
+*/
+vector<vector<int>> merge(vector<vector<int>> &interval)
 {
-    return v1[0] < v2[0];
-}
+    if (interval.empty())
+        return interval;
+    // to store
+    vector<vector<int>> res;
+    // to sort
+    sort(interval.begin(), interval.end());
+    // print2DVector(interval);
+    // cout << endl;
 
-vector<vector<int>> merge(vector<vector<int>> &intervals)
-{
-    // vector<vector<int>> v;
-    int n = intervals.size(), i = 0;
-    // Use of "sort()" for sorting on basis of 1nd column
-    sort(intervals.begin(), intervals.end(), sortcol);
-    //class wala 
-    /*
-    sort(intervals.begin(), intervals.end(), [this] (vector<int> v1, vector<int> v2) 
-                                                    {return v1[0] < v2[0];}  );
-    */
-    // print2DVector(intervals);
-
-    while (i < n - 1)
+    res.push_back(interval[0]);
+    for (int i = 1, n = interval.size(), j = 0; i < n; i++)
     {
-        if (intervals[i + 1][0] >= intervals[i][0] && intervals[i + 1][0] <= intervals[i][1])
+        if (res[j].back() < interval[i].front())
         {
-            // starting point as it is
-            //update end ponit max(last of arr1, last of arr2)
-            intervals[i][1] = max(intervals[i][1], intervals[i + 1][1]);
-            //TODO delete i+1 th element // also n--
-            intervals.erase(intervals.begin() + i + 1);
-            n--;
+            res.push_back(interval[i]);
+            j++;
         }
         else
         {
-            i++;
+            res[j].back() = max(res[j].back(), interval[i].back());
         }
     }
-
-    return intervals;
+    return res;
 }
+
 int main()
 {
-    vector<vector<int>> intervals = {{6, 8}, {1, 9}, {2, 4}, {4, 7}};
+    vector<vector<int>> interval = {{6, 8}, {1, 9}, {2, 4}, {4, 7}};
 
-    merge(intervals);
-    // for (int i = 0; i < intervals.size(); i++)
-    // {
-    //     cout << intervals[i][0] << "," << intervals[i][1] << endl;
-    // }
-    // print2DVector(intervals);
-    // cout << endl;
-    print2DVector(intervals);
-    cout << intervals.size() << endl;
+    vector<vector<int>> res = merge(interval);
+    print2DVector(res);
+    cout << endl;
+    cout << res.size() << endl;
     return 0;
 }
