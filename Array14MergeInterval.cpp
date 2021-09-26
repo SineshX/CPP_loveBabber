@@ -33,7 +33,8 @@ vector<vector<int>> merge(vector<vector<int>> &interval)
 
     res.push_back(interval[0]);
     for (int i = 1, n = interval.size(), j = 0; i < n; i++)
-    {
+    {   
+        // yes we can use (res.back().back() < interval[i].front() )
         if (res[j].back() < interval[i].front())
         {
             res.push_back(interval[i]);
@@ -47,13 +48,40 @@ vector<vector<int>> merge(vector<vector<int>> &interval)
     return res;
 }
 
+//took more time
+vector<vector<int>> merge1(vector<vector<int>> &interval)
+{
+    if (interval.empty())
+        return interval;
+    // to store
+    vector<vector<int>> res;
+    // to sort
+    sort(interval.begin(), interval.end());
+    // print2DVector(interval);
+    // cout << endl;
+
+    res.push_back(interval[0]);
+    for (auto itr : interval )
+    {
+        if (itr.front() < res.back().back() )
+        { 
+            res.back().back() = max(res.back().back(), itr.back());
+        }
+        else
+        {
+           res.push_back(itr);
+        }
+    }
+    return res;
+}
+
 int main()
 {
     vector<vector<int>> interval = {{6, 8}, {1, 9}, {2, 4}, {4, 7}};
 
-    vector<vector<int>> res = merge(interval);
+    vector<vector<int>> res = merge1(interval);
     print2DVector(res);
     cout << endl;
-    cout << res.size() << endl;
+    // cout << res.size() << endl;
     return 0;
 }
